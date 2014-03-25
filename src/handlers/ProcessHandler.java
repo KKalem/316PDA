@@ -19,11 +19,11 @@ public class ProcessHandler {
 	public boolean startProcess(String name) throws IOException{
 		String path = procMap.getProcessPath(name);
 		
-		if(pathInvalid(path)){		
-			return false;
-		}else{						
+		if(pathValid(path)){		
 			nameToProcMap.put(name, new ProcessBuilder(path).start());
 			return true;
+		}else{						
+			return false;
 		}
 	}
 	
@@ -41,12 +41,11 @@ public class ProcessHandler {
 	}
 	
 	
-	private boolean pathInvalid(String path){
-		if(!(path.contains(":"))){		//there must be AT LEAST 1 ":" in a path. otherwise its probably wrong.
-			return false;
-		}else{
+	private boolean pathValid(String path){
+		if(path.contains(":") && path.contains(".exe")){
 			return true;
 		}
+		return false;
 	}
 	
 	
